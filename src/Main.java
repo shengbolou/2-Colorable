@@ -96,7 +96,7 @@ public class Main {
 			ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
 			//initialize adjacency-list
 			for(int i=0; i<vertex_num;i++){
-				list.add(new ArrayList<>());
+				list.add(new ArrayList<Integer>());
 			}
 			//if there is edge between a and b, then add a to b and b to a
 			while (scanner.hasNextInt()) {
