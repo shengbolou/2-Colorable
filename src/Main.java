@@ -1,7 +1,9 @@
 import java.io.*;
 import java.util.*;
 
-
+/*
+ *  Vertex index starts from 0
+ */
 public class Main {
 
 	//The array of color code of each vertex
@@ -10,8 +12,8 @@ public class Main {
 	public static HashMap<Integer,Integer> path = new HashMap<Integer,Integer>();
 
 	/*
-	* This method is the algorithm to check whether a graph is 2 colorable from the given start vertex
-	*/
+	 * This method is the algorithm to check whether a graph is 2 colorable from the given start vertex
+	 */
 	public static int[] is_2_Colorable(ArrayList<ArrayList<Integer>> input, int vertex){
 
 		//color the start vertex
@@ -50,27 +52,34 @@ public class Main {
 	}
 
 	/*
-	* This method is for actually coloring the graph
-	*/
+	 * This method is for actually coloring the graph
+	 */
 	public static int[] Coloring(ArrayList<ArrayList<Integer>> input,int vertex_num){
 
 		for (int i=0; i<vertex_num; i++) {
+			//if the vetex is not colored, then run is_2_Colorable using this vertex
 			if (color[i]==-1) {
 				int[] result = is_2_Colorable(input,i);
+				//if the graph is not 2-colorable, then return
 				if(result != null)
 					return result;
 			}
 			else
 				continue;
 		}
+		//if nothing happens, return null, means the graph is 2-colorable
 		return null;
 
 	}
 
 	/*
-	* The main method
-	*/
+	 * The main method
+	 */
 	public static void main(String [] args){
+
+		//get the start time
+		long startTime = System.nanoTime();
+
 		try {
 			Scanner scanner = new Scanner(new File("data/"+args[0]));
 			int vertex_num = scanner.nextInt();
@@ -83,9 +92,9 @@ public class Main {
 				color[i] = -1;
 			}
 
-			//create adjacent list
+			//create adjacency-list
 			ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
-			//initialize adjacent list
+			//initialize adjacency-list
 			for(int i=0; i<vertex_num;i++){
 				list.add(new ArrayList<>());
 			}
@@ -103,7 +112,7 @@ public class Main {
 			//if the result is null, means the given graph is 2-colorable
 			if(result==null){
 				PrintWriter writer  = new PrintWriter("result/color_code_"+args[0]+".txt");
-				System.out.println("This graph is 2 colorable, color code will be generated to result folder");
+				System.out.println("This graph is 2 colorable, color code will be generated to 'result' folder in");
 				for (int i=0; i<vertex_num; i++) {
 					writer.println("Vertex "+i+": "+color[i]);
 				}
@@ -114,7 +123,7 @@ public class Main {
 			else{
 				//create a writer
 				PrintWriter writer = new PrintWriter("result/odd_cycle_"+args[0]+".txt");
-				System.out.println("This graph is not 2 colorable, the odd cycle will be generated to result folder");
+				System.out.println("This graph is not 2 colorable, the odd cycle will be generated to 'result' folder");
 
 				int x = result[0];
 				int y = result[1];
@@ -131,9 +140,14 @@ public class Main {
 				writer.close();
 			}
 
+			//close the reader
 			scanner.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		// use to calculate the time
+		long endTime = System.nanoTime();
+		System.out.println("Took "+(endTime - startTime)*0.000000001 + " s");
 	}
 }
