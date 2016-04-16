@@ -99,10 +99,11 @@ public class Main {
 
 			//call the coloring function
 			int[] result = Coloring(list,vertex_num);
+
 			//if the result is null, means the given graph is 2-colorable
 			if(result==null){
 				PrintWriter writer  = new PrintWriter("result/color_code_"+args[0]+".txt");
-				System.out.println("This graph is 2 colorable");
+				System.out.println("This graph is 2 colorable, color code will be generated to result folder");
 				for (int i=0; i<vertex_num; i++) {
 					writer.println("Vertex "+i+": "+color[i]);
 				}
@@ -113,7 +114,7 @@ public class Main {
 			else{
 				//create a writer
 				PrintWriter writer = new PrintWriter("result/odd_cycle_"+args[0]+".txt");
-				System.out.println("This graph is not 2 colorable");
+				System.out.println("This graph is not 2 colorable, the odd cycle will be generated to result folder");
 
 				int x = result[0];
 				int y = result[1];
